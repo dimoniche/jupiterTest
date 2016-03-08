@@ -13,7 +13,9 @@ public class Units {
 	 * Полученное значение
 	 */
 	public List<String> value;
-	
+
+    public String name;
+
     public Units()
     {
 
@@ -34,6 +36,10 @@ public class Units {
                     unit.result = type;
                 }
             }
+            else if (val.Name == "name")
+            {
+                unit.name = val.Value.ToString();
+            }
             else
             {
                 List<String> list_value = new List<string>();
@@ -43,6 +49,8 @@ public class Units {
                     for (int i = 0; i < obj.Count; i++)
                         list_value.Add(obj[i].ToString());
                 }
+
+                unit.value = list_value;
             }
         }
   

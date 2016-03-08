@@ -14,6 +14,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Jupiter.Controls;
+using Jupiter.Forms;
 
 namespace Jupiter
 {
@@ -64,15 +65,19 @@ namespace Jupiter
             };
             String consumerTag1 = channel.BasicConsume("jupiter.transport.toserver", false, "", consumerToServer);
 
-            DeviceControl device = new DeviceControl();
-            device.Visible = true;
+            //DeviceControl device = new DeviceControl();
+            //device.Visible = true;
+
+            //Device dev = new Device();
+
+            //JupiterTest.ActiveForm.MdiParent = dev;
         }
 
         void fromTransportResponse(byte[] response)
         {
             request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
 
-
+            resultResponseViewJupiter.InsertUnitsRow(request.units);
 
             request.deviceid = "0";
         }
