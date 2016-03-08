@@ -56,6 +56,7 @@
             this.Controls.Add(this.deviceControl1);
             this.Name = "JupiterTest";
             this.Text = "Jupiter";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.JupiterTest_FormClosed);
             this.ResumeLayout(false);
 
         }

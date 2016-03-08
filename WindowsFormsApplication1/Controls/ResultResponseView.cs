@@ -19,13 +19,32 @@ namespace WindowsFormsApplication1.Controls
             //tableUnits.column
         }
 
-        public delegate void DataEventToObjectEventHandler(List<Units> listUnits);
+        public delegate void InsertUnitsRowHandler(List<Units> listUnits);
+        public delegate void ClearAllHandler();
 
+        public void clearAll()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ClearAllHandler(clear));
+                return;
+            }
+            else
+            {
+                clear();
+            }
+        }
+    
+        void clear()
+        {
+            UnitsView.Rows.Clear();
+        }
+    
         public void InsertUnitsRow(List<Units> listUnits)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new DataEventToObjectEventHandler(InsertUnits),listUnits);
+                BeginInvoke(new InsertUnitsRowHandler(InsertUnits),listUnits);
                 return;
             }
             else

@@ -22,10 +22,10 @@ namespace Jupiter
     {
         ConnectionFactory factory;
         IConnection conn;
-
         IModel channel;
 
         ServerRpc request;
+        Dictionary<String, ServerRpc> Requests;
 
         public JupiterTest()
         {
@@ -80,6 +80,18 @@ namespace Jupiter
             resultResponseViewJupiter.InsertUnitsRow(request.units);
 
             request.deviceid = "0";
+        }
+
+        private void JupiterTest_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (channel != null)
+            {
+                channel.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
         }
     }
 }
