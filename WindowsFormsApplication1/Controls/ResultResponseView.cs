@@ -20,6 +20,7 @@ namespace WindowsFormsApplication1.Controls
         }
 
         public delegate void InsertUnitsRowHandler(List<Units> listUnits);
+        public delegate void InsertArchiveRowHandler(List<Row> listUnits);
         public delegate void ClearAllHandler();
 
         public void clearAll()
@@ -60,6 +61,29 @@ namespace WindowsFormsApplication1.Controls
                 String[] str = { unit.name , unit.value[0] };
 
                 UnitsView.Rows.Add(str);
+            }
+        }
+
+        public void InsertArchiveRow(List<Row> listRow)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new InsertArchiveRowHandler(InsertArchive), listRow);
+                return;
+            }
+            else
+            {
+                InsertArchive(listRow);
+            }
+        }
+
+        public void InsertArchive(List<Row> listRow)
+        {
+            foreach (Row unit in listRow)
+            {
+                String[] str = { "" };// { unit.name, unit.value[0] };
+
+                ArchiveView.Rows.Add(str);
             }
         }
     }

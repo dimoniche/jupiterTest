@@ -34,9 +34,12 @@
             this.NameUnits = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueUnits = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArchivePage = new System.Windows.Forms.TabPage();
+            this.ArchiveView = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.UnitsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UnitsView)).BeginInit();
+            this.ArchivePage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ArchiveView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -87,6 +90,7 @@
             // 
             // ArchivePage
             // 
+            this.ArchivePage.Controls.Add(this.ArchiveView);
             this.ArchivePage.Location = new System.Drawing.Point(4, 22);
             this.ArchivePage.Name = "ArchivePage";
             this.ArchivePage.Padding = new System.Windows.Forms.Padding(3);
@@ -94,6 +98,15 @@
             this.ArchivePage.TabIndex = 2;
             this.ArchivePage.Text = "Архивы";
             this.ArchivePage.UseVisualStyleBackColor = true;
+            // 
+            // ArchiveView
+            // 
+            this.ArchiveView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ArchiveView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ArchiveView.Location = new System.Drawing.Point(3, 3);
+            this.ArchiveView.Name = "ArchiveView";
+            this.ArchiveView.Size = new System.Drawing.Size(463, 398);
+            this.ArchiveView.TabIndex = 0;
             // 
             // ResultResponseView
             // 
@@ -105,6 +118,8 @@
             this.tabControl1.ResumeLayout(false);
             this.UnitsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UnitsView)).EndInit();
+            this.ArchivePage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ArchiveView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,5 +132,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NameUnits;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValueUnits;
         private System.Windows.Forms.TabPage ArchivePage;
+        private System.Windows.Forms.DataGridView ArchiveView;
     }
 }
