@@ -87,6 +87,8 @@
     <Compile Include="Forms\Device.Designer.cs">
       <DependentUpon>Device.cs</DependentUpon>
     </Compile>
+    <Compile Include="jupiterRPC\HeaderColumn.cs" />
+    <Compile Include="jupiterRPC\MeasureUnitTypeEnum.cs" />
     <Compile Include="JupiterTest.cs">
       <SubType>Form</SubType>
     </Compile>

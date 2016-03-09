@@ -58,7 +58,7 @@ namespace WindowsFormsApplication1.Controls
         {
             foreach (Units unit in listUnits)
             {
-                String[] str = { unit.name , unit.value[0] };
+                String[] str = { unit.name , unit.value };
 
                 UnitsView.Rows.Add(str);
             }

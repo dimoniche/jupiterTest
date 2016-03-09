@@ -76,16 +76,16 @@ public class ServerRpc {
 	 * Описание результата запроса
 	 */
 	public String errorText;
-	
-	/**
+
+    /**
 	 * Заголовок архива
 	 */
-	public List<String> header;
+    public List<HeaderColumn> header;
 
-	/**
+    /**
 	 * Строки полученного от прибора архива
 	 */
-	public List<Row> rows;
+    public List<Row> rows;
 	
 	/**
 	 * Единицы измерений из прибора
@@ -158,11 +158,11 @@ public class ServerRpc {
             }
             else if (obj.Key == "header")
             {
-                result.header = new List<string>();
+                result.header = new List<HeaderColumn>();
 
-                foreach (String val in obj.Value)
+                foreach (JToken val in obj.Value)
                 {
-                    result.header.Add(val);
+                    result.header.Add(HeaderColumn.FromXml(val));
                 }
             }
             else if (obj.Key == "rows")
