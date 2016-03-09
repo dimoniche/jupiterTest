@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 public class Units {
 	/**
@@ -38,7 +39,11 @@ public class Units {
             }
             else if (val.Name == "name")
             {
-                unit.name = val.Value.ToString();
+                UTF8Encoding utf8 = new UTF8Encoding();
+                Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
+                String decodedString = utf8.GetString(encodedBytes);
+
+                unit.name = decodedString;
             }
             else
             {
