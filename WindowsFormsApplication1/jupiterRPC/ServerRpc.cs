@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
+
 /**
 * Класс для передачи заданий драйверам устройств
 * 
@@ -106,6 +108,8 @@ public class ServerRpc {
 	public static ServerRpc fromJson(JObject objects)
     {
         ServerRpc result = new ServerRpc();
+		UTF8Encoding utf8 = new UTF8Encoding();
+		Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
 		foreach(var obj in objects)
         {
@@ -154,7 +158,11 @@ public class ServerRpc {
             }
             else if (obj.Key == "errorText")
             {
-                result.errorText = obj.Value.ToString();
+				Byte[] encodedBytes = utf8.GetBytes(obj.Value.ToString());
+				Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+				String decodedString = utf8.GetString(win1251Bytes);
+
+				result.errorText = decodedString;
             }
             else if (obj.Key == "header")
             {

@@ -78,6 +78,8 @@ namespace Jupiter
             request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
 
             resultResponseViewJupiter.InsertUnitsRow(request.units);
+			resultResponseViewJupiter.InsertArchiveColumn(request.header);
+			resultResponseViewJupiter.InsertArchiveRow(request.rows);
 
             request.deviceid = "0";
         }

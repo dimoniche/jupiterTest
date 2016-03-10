@@ -14,3 +14,19 @@ C:\Users\dimon_001\Documents\Visual Studio 2015\Projects\WindowsFormsApplication
 C:\Users\dimon_001\Documents\Visual Studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\Jupiter.Forms.Device.resources
 C:\Users\dimon_001\Documents\Visual Studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Controls.ResultResponseView.resources
 C:\Users\dimon_001\Documents\Visual Studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\JupiterTest.csprojResolveAssemblyReference.cache
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\Newtonsoft.Json.dll
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\RabbitMQ.Client.dll
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\Newtonsoft.Json.xml
+D:\jupiter\JupiterTest\WindowsFormsApplication1\bin\Debug\RabbitMQ.Client.xml
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\JupiterTest.csprojResolveAssemblyReference.cache
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\Jupiter.Controls.DeviceControl.resources
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Controls.ResultResponseView.resources
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\Jupiter.Forms.Device.resources
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\Jupiter.JupiterTest.resources
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\jupiter\JupiterTest\WindowsFormsApplication1\obj\Debug\JupiterTest.csproj.GenerateResource.Cache

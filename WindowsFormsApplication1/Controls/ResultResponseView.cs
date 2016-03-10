@@ -20,7 +20,8 @@ namespace WindowsFormsApplication1.Controls
         }
 
         public delegate void InsertUnitsRowHandler(List<Units> listUnits);
-        public delegate void InsertArchiveRowHandler(List<Row> listUnits);
+		public delegate void InsertArchiveRowHandler(List<Row> rows);
+		public delegate void InsertArchiveColumnHandler(List<HeaderColumn> column);
         public delegate void ClearAllHandler();
 
         public void clearAll()
@@ -64,27 +65,55 @@ namespace WindowsFormsApplication1.Controls
             }
         }
 
-        public void InsertArchiveRow(List<Row> listRow)
+		public void InsertArchiveRow(List<Row> listRow)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new InsertArchiveRowHandler(InsertArchive), listRow);
+				BeginInvoke(new InsertArchiveRowHandler(InsertArchive), listRow);
                 return;
             }
             else
             {
-                InsertArchive(listRow);
+				InsertArchive(listRow);
             }
         }
 
-        public void InsertArchive(List<Row> listRow)
+		public void InsertArchive(List<Row> listRow)
         {
-            foreach (Row unit in listRow)
+            foreach (Row row in listRow)
             {
-                String[] str = { "" };// { unit.name, unit.value[0] };
+				String[] str = new string[row.value.Count];
+	            int i = 0;
+
+				foreach (String val in row.value)
+				{
+					str[i] = val;
+					i++;
+				}
 
                 ArchiveView.Rows.Add(str);
             }
         }
+
+		public void InsertArchiveColumn(List<HeaderColumn> column)
+		{
+			if (InvokeRequired)
+			{
+				BeginInvoke(new InsertArchiveColumnHandler(ArchiveColumn), column);
+				return;
+			}
+			else
+			{
+				ArchiveColumn(column);
+			}
+		}
+
+		public void ArchiveColumn(List<HeaderColumn> column)
+		{
+			foreach (HeaderColumn col in column)
+			{
+				ArchiveView.Columns.Add(col.column, col.column);
+			}
+		}
     }
 }

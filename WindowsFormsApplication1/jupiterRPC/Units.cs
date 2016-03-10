@@ -17,6 +17,16 @@ public class Units {
 
     public String name;
 
+	/**
+	 * Единица измерения
+	 */
+	public String unit;
+
+	/**
+	 * Единица измерения в численном виде
+	 */
+	public MeasureUnitTypeEnum unitsDigital;
+
     public Units()
     {
 
@@ -25,13 +35,14 @@ public class Units {
     internal static Units FromXml(JToken value)
     {
         Units unit = new Units();
+		UTF8Encoding utf8 = new UTF8Encoding();
+		Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
         foreach (JProperty val in value)
         {
-            ErrorDeviceEnum type;
-
             if (val.Name == "result")
             {
+				ErrorDeviceEnum type;
                 if (Enum.TryParse(val.Value.ToString(), out type))
                 {
                     unit.result = type;
@@ -39,16 +50,30 @@ public class Units {
             }
             else if (val.Name == "name")
             {
-                UTF8Encoding utf8 = new UTF8Encoding();
                 Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
-                String decodedString = utf8.GetString(encodedBytes);
+				Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+				String decodedString = utf8.GetString(win1251Bytes);
 
                 unit.name = decodedString;
             }
+			else if (val.Name == "unit")
+			{
+				Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
+				Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+				String decodedString = utf8.GetString(win1251Bytes);
+
+				unit.unit = decodedString;
+			}
+			else if (val.Name == "unitsDigital")
+			{
+				MeasureUnitTypeEnum un;
+				if (Enum.TryParse(val.Value.ToString(), out un))
+				{
+					unit.unitsDigital = un;
+				}
+			}
             else
             {
-                List<String> list_value = new List<string>();
-
                 unit.value = val.Value.ToString();
             }
         }

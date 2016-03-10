@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Newtonsoft.Json.Linq;
 
 public class HeaderColumn
@@ -21,12 +22,18 @@ public class HeaderColumn
     internal static HeaderColumn FromXml(JToken value)
     {
         HeaderColumn col = new HeaderColumn();
+		UTF8Encoding utf8 = new UTF8Encoding();
+		Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
         foreach (JProperty val in value)
         {
             if (val.Name == "column")
             {
-                col.column = val.Value.ToString();
+				Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
+				Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+				String decodedString = utf8.GetString(win1251Bytes);
+
+				col.column = decodedString;
             }
             else if (val.Name == "columnUnitsDigital")
             {
@@ -39,7 +46,11 @@ public class HeaderColumn
             }
             else if (val.Name == "columnUnits")
             {
-                col.columnUnits = val.Value.ToString();
+				Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
+				Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+				String decodedString = utf8.GetString(win1251Bytes);
+
+				col.columnUnits = decodedString;
             }
         }
 
