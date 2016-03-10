@@ -128,10 +128,10 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage UnitsPage;
-        private System.Windows.Forms.DataGridView UnitsView;
+        public System.Windows.Forms.DataGridView UnitsView;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameUnits;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValueUnits;
-        private System.Windows.Forms.TabPage ArchivePage;
+        public System.Windows.Forms.TabPage ArchivePage;
         private System.Windows.Forms.DataGridView ArchiveView;
     }
 }

@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1.Controls
 {
     public partial class ResultResponseView : UserControl
     {
+        public bool columnLoaded = false;
+
         public ResultResponseView()
         {
             InitializeComponent();
 
-            //tableUnits.column
+            columnLoaded = false;
         }
 
         public delegate void InsertUnitsRowHandler(List<Units> listUnits);
@@ -57,6 +53,8 @@ namespace WindowsFormsApplication1.Controls
 
         public void InsertUnits(List<Units> listUnits)
         {
+            UnitsView.Rows.Clear();
+
             foreach (Units unit in listUnits)
             {
                 String[] str = { unit.name , unit.value };
@@ -80,6 +78,8 @@ namespace WindowsFormsApplication1.Controls
 
 		public void InsertArchive(List<Row> listRow)
         {
+            ArchiveView.Rows.Clear();
+
             foreach (Row row in listRow)
             {
 				String[] str = new string[row.value.Count];
@@ -114,6 +114,8 @@ namespace WindowsFormsApplication1.Controls
 			{
 				ArchiveView.Columns.Add(col.column, col.column);
 			}
-		}
+
+            columnLoaded = true;
+        }
     }
 }

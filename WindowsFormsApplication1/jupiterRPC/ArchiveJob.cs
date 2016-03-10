@@ -9,17 +9,17 @@ public class ArchiveJob {
 	/**
 	 * тип запрашиваемого архива
 	 */
-	private ArchiveTypeEnum archiveType;
-	
-	/**
+	public ArchiveTypeEnum archiveType;
+
+    /**
 	 * время начала опроса архива
 	 */
-	private DateTime dateStart;
-	
-	/**
+    public DateTime dateStart;
+
+    /**
 	 * время конца опроса архива 
 	 */
-	private DateTime dateFinish;
+    public DateTime dateFinish;
 
 	public ArchiveJob() {
 	}

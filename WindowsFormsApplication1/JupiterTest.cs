@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.IO;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Jupiter.Controls;
-using Jupiter.Forms;
 
 namespace Jupiter
 {
@@ -25,12 +19,73 @@ namespace Jupiter
         IModel channel;
 
         ServerRpc request;
-        Dictionary<String, ServerRpc> Requests;
+        List<DeviceControl> device = new List<DeviceControl>();
 
         public JupiterTest()
         {
             InitializeComponent();
 
+        }
+
+        void fromTransportResponse(byte[] response)
+        {
+            request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
+            DeviceControl dev;
+
+            dev = device.Where<DeviceControl>(c => c.request.imei.Equals(request.imei)).FirstOrDefault();
+
+            if(dev != null)
+            {
+                dev.resultResponseView.InsertUnitsRow(request.units);
+                if (!dev.resultResponseView.columnLoaded)
+                {
+                    dev.resultResponseView.InsertArchiveColumn(request.header);
+                }
+                dev.resultResponseView.InsertArchiveRow(request.rows);
+            }
+        }
+
+        private void JupiterTest_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (channel != null)
+            {
+                channel.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
+        }
+
+        public delegate void newDevice(object sender, EventArgs e);
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new newDevice(newDeviceinsert), sender,e);
+                return;
+            }
+            else
+            {
+                newDeviceinsert(sender,e);
+            }
+        }
+
+        public void newDeviceinsert(object sender, EventArgs e)
+        {
+            TabPage page = new TabPage("Name" + devicesTab.TabPages.Count);
+            DeviceControl dev = new DeviceControl(channel);
+
+            page.Controls.Add(dev);
+            devicesTab.TabPages.Add(page);
+
+            device.Add(dev);
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
             factory = new ConnectionFactory();
             factory.UserName = "devel";
             factory.Password = "devel";
@@ -65,35 +120,7 @@ namespace Jupiter
             };
             String consumerTag1 = channel.BasicConsume("jupiter.transport.toserver", false, "", consumerToServer);
 
-            //DeviceControl device = new DeviceControl();
-            //device.Visible = true;
-
-            //Device dev = new Device();
-
-            //JupiterTest.ActiveForm.MdiParent = dev;
-        }
-
-        void fromTransportResponse(byte[] response)
-        {
-            request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
-
-            resultResponseViewJupiter.InsertUnitsRow(request.units);
-			resultResponseViewJupiter.InsertArchiveColumn(request.header);
-			resultResponseViewJupiter.InsertArchiveRow(request.rows);
-
-            request.deviceid = "0";
-        }
-
-        private void JupiterTest_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (channel != null)
-            {
-                channel.Close();
-            }
-            if (conn != null)
-            {
-                conn.Close();
-            }
+            state.Text = "Подключение";
         }
     }
 }
