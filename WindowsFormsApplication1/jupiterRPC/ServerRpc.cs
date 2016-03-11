@@ -105,6 +105,11 @@ public class ServerRpc {
 		//creationTime = Calendar.GetInstance();
 	}
 
+	public static String toJson(ServerRpc objects)
+	{
+		string json = JsonConvert.SerializeObject(objects, Formatting.Indented);
+	}
+
 	public static ServerRpc fromJson(JObject objects)
     {
         ServerRpc result = new ServerRpc();

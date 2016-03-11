@@ -56,6 +56,9 @@ namespace Jupiter.Controls
             TypeArchive.Enabled = false;
 
             result.Text = "Пошел запрос";
+
+
+			channel.BasicPublish("", "jupiter.transport.fromserver", null, ServerRpc.toJson(request));
         }
     }
 }
