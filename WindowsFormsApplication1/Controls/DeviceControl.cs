@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Framing;
 
 namespace Jupiter.Controls
 {
@@ -25,21 +26,45 @@ namespace Jupiter.Controls
 
         }
 
+        public delegate void changeVisibleHandler();
+
+        public void changeVisible()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new changeVisibleHandler(change));
+                return;
+            }
+            else
+            {
+                change();
+            }
+        }
+
+        void change()
+        {
+            DeviceSetting.Enabled = !DeviceSetting.Enabled;
+            DateArchive.Enabled = !DateArchive.Enabled;
+            TypeArchive.Enabled = !TypeArchive.Enabled;
+            button1.Enabled = !button1.Enabled;
+
+            if(button1.Enabled) result.Text = "Ответ получен";
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            int bus = 1;
-
-            int.TryParse(textBox1.Text,out bus);
+            int bus = 0;
 
             request.busAddress = bus;
 
-            int type = 0;
-            int.TryParse(devicetype.Text,out type);
+            DeviceTypeEnum type = 0;
+            Enum.TryParse(devicetype.Text,out type);
 
-            request.device = (DeviceTypeEnum)type;
+            request.device = type;
 
             request.deviceid = deviceId.Text;
             request.imei = IMEI.Text;
+            request.creationTime = DateTime.Now;
 
             ArchiveJob job = new ArchiveJob();
 
@@ -50,6 +75,9 @@ namespace Jupiter.Controls
             job.dateFinish = FinishArchivedateTime.Value;
 
             request.archiveJob = job;
+            request.timeOutRequest = 15;
+            request.timeOutTask = 300;
+            request.requestType = RequestServerTypeEnum.GET_ARCHIVE;
 
             DeviceSetting.Enabled = false;
             DateArchive.Enabled = false;
@@ -57,8 +85,14 @@ namespace Jupiter.Controls
 
             result.Text = "Пошел запрос";
 
+            button1.Enabled = false;
 
-			channel.BasicPublish("", "jupiter.transport.fromserver", null, ServerRpc.toJson(request));
+            Guid corrId = new Guid();
+            corrId = Guid.NewGuid();  
+            BasicProperties props = new BasicProperties();
+            props.CorrelationId = corrId.ToString();
+
+            channel.BasicPublish("","jupiter.transport.fromserver", null, ServerRpc.toJson(request));
         }
     }
 }

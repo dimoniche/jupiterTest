@@ -34,14 +34,18 @@ namespace Jupiter
 
             dev = device.Where<DeviceControl>(c => c.request.imei.Equals(request.imei)).FirstOrDefault();
 
-            if(dev != null)
+            if (dev != null)
             {
+                dev.resultResponseView.clearAll();
+
                 dev.resultResponseView.InsertUnitsRow(request.units);
                 if (!dev.resultResponseView.columnLoaded)
                 {
                     dev.resultResponseView.InsertArchiveColumn(request.header);
                 }
                 dev.resultResponseView.InsertArchiveRow(request.rows);
+
+                dev.changeVisible();
             }
         }
 
@@ -121,6 +125,9 @@ namespace Jupiter
             String consumerTag1 = channel.BasicConsume("jupiter.transport.toserver", false, "", consumerToServer);
 
             state.Text = "Подключение";
+
+            button1.Enabled = true;
+            button2.Enabled = true;
         }
     }
 }

@@ -30,10 +30,10 @@
         {
             this.devicesTab = new System.Windows.Forms.TabControl();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.state = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.state = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +58,15 @@
             this.panel1.Size = new System.Drawing.Size(646, 79);
             this.panel1.TabIndex = 1;
             // 
+            // state
+            // 
+            this.state.AutoSize = true;
+            this.state.Location = new System.Drawing.Point(12, 50);
+            this.state.Name = "state";
+            this.state.Size = new System.Drawing.Size(59, 13);
+            this.state.TabIndex = 3;
+            this.state.Text = "disconnect";
+            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(12, 24);
@@ -70,6 +79,7 @@
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(470, 24);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(164, 23);
@@ -79,6 +89,7 @@
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(298, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 23);
@@ -86,15 +97,6 @@
             this.button1.Text = "Новое устройство";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // state
-            // 
-            this.state.AutoSize = true;
-            this.state.Location = new System.Drawing.Point(12, 50);
-            this.state.Name = "state";
-            this.state.Size = new System.Drawing.Size(59, 13);
-            this.state.TabIndex = 3;
-            this.state.Text = "disconnect";
             // 
             // JupiterTest
             // 

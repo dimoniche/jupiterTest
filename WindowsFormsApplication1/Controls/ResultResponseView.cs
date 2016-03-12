@@ -36,8 +36,9 @@ namespace WindowsFormsApplication1.Controls
         void clear()
         {
             UnitsView.Rows.Clear();
+            ArchiveView.Rows.Clear();
         }
-    
+
         public void InsertUnitsRow(List<Units> listUnits)
         {
             if (InvokeRequired)

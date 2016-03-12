@@ -223,7 +223,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "1";
+            this.textBox1.Text = "0";
             // 
             // contextMenuStrip1
             // 
@@ -244,7 +244,7 @@
             this.resultResponseView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.resultResponseView.Location = new System.Drawing.Point(0, 267);
             this.resultResponseView.Name = "resultResponseView";
-            this.resultResponseView.Size = new System.Drawing.Size(497, 300);
+            this.resultResponseView.Size = new System.Drawing.Size(632, 300);
             this.resultResponseView.TabIndex = 11;
             // 
             // DeviceControl
@@ -258,7 +258,7 @@
             this.Controls.Add(this.TypeArchive);
             this.Controls.Add(this.DateArchive);
             this.Name = "DeviceControl";
-            this.Size = new System.Drawing.Size(497, 567);
+            this.Size = new System.Drawing.Size(632, 567);
             this.DateArchive.ResumeLayout(false);
             this.DateArchive.PerformLayout();
             this.TypeArchive.ResumeLayout(false);
@@ -272,17 +272,17 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox DateArchive;
+        public System.Windows.Forms.GroupBox DateArchive;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker FinishArchivedateTime;
         private System.Windows.Forms.DateTimePicker StartArchivedateTime;
         private System.Windows.Forms.RadioButton radioButtonHour;
         private System.Windows.Forms.RadioButton radioButtonDay;
-        private System.Windows.Forms.GroupBox TypeArchive;
+        public System.Windows.Forms.GroupBox TypeArchive;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox DeviceSetting;
+        public System.Windows.Forms.GroupBox DeviceSetting;
         private System.Windows.Forms.ComboBox devicetype;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Label label3;

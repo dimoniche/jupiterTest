@@ -1,5 +1,6 @@
 
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
@@ -65,7 +66,7 @@ public class ServerRpc {
 	/**
 	 * Время создания запроса
 	 */
-	public Calendar creationTime;
+	public DateTime creationTime;
 	
 	// ниже результат обмена с прибором
 
@@ -105,9 +106,51 @@ public class ServerRpc {
 		//creationTime = Calendar.GetInstance();
 	}
 
-	public static String toJson(ServerRpc objects)
+    static byte[] GetBytes(string str)
+    {
+        byte[] bytes = new byte[str.Length * sizeof(char)];
+        System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+        return bytes;
+    }
+
+    public static long ConvertToUnixTimestamp(DateTime date)
+    {
+        DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        TimeSpan diff = date.ToUniversalTime() - origin;
+
+        return (long)Math.Floor(diff.TotalMilliseconds);
+    }
+
+    public static byte[] toJson(ServerRpc objects)
 	{
-		string json = JsonConvert.SerializeObject(objects, Formatting.Indented);
+        JObject jsonObj = 
+            new JObject(new JProperty("deviceid", JToken.FromObject(objects.deviceid)),
+                        new JProperty("device", JToken.FromObject(objects.device.ToString())),
+                        new JProperty("busAddress", JToken.FromObject(objects.busAddress)),
+                        new JProperty("imei", JToken.FromObject(objects.imei)),
+                        new JProperty("requestType", JToken.FromObject(JToken.FromObject(objects.requestType.ToString()))),
+                        new JProperty("archiveJob",
+                            new JObject(
+                                new JProperty("archiveType", JToken.FromObject(objects.archiveJob.archiveType.ToString())),
+                                new JProperty("dateStart", JToken.FromObject(ConvertToUnixTimestamp(objects.archiveJob.dateStart)/* + 62135596800000*/)),
+                                new JProperty("dateFinish", JToken.FromObject(ConvertToUnixTimestamp(objects.archiveJob.dateFinish)/* + 62135596800000*/))
+                                )
+                            ),
+                        new JProperty("timeOutTask", JToken.FromObject(objects.timeOutTask)),
+                        new JProperty("timeOutRequest", JToken.FromObject(objects.timeOutRequest)),
+                        new JProperty("ParamId", JToken.FromObject(objects.ParamId)),
+                        new JProperty("creationTime", JToken.FromObject(ConvertToUnixTimestamp(objects.creationTime)/* + 62135596800000*/))
+            );
+
+        UTF8Encoding utf8 = new UTF8Encoding();
+        Encoding win1251 = Encoding.GetEncoding("Windows-1251");
+        Byte[] encodedBytes = win1251.GetBytes(jsonObj.ToString());
+        Byte[] win1251Bytes = Encoding.Convert(win1251, utf8, encodedBytes);
+        String decodedString = utf8.GetString(win1251Bytes);
+
+        byte[] json = utf8.GetBytes(decodedString);
+
+        return json;
 	}
 
 	public static ServerRpc fromJson(JObject objects)
