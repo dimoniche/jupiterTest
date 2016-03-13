@@ -9,6 +9,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Newtonsoft.Json.Linq;
 using Jupiter.Controls;
+using RabbitMQ.Client.Framing;
 
 namespace Jupiter
 {
@@ -27,12 +28,12 @@ namespace Jupiter
 
         }
 
-        void fromTransportResponse(byte[] response)
+        void fromTransportResponse(byte[] response, string id)
         {
             request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
             DeviceControl dev;
 
-            dev = device.Where<DeviceControl>(c => c.request.imei.Equals(request.imei)).FirstOrDefault();
+            dev = device.Where<DeviceControl>(c => c.request.requestId.Equals(request.requestId)).FirstOrDefault();
 
             if (dev != null)
             {
@@ -87,14 +88,14 @@ namespace Jupiter
             device.Add(dev);
 
         }
-
+  
         private void button3_Click(object sender, EventArgs e)
         {
             factory = new ConnectionFactory();
             factory.UserName = "devel";
             factory.Password = "devel";
             factory.VirtualHost = "/";
-            factory.HostName = "parabox.org";
+            factory.HostName = "hub.m2m24.ru";
 
             conn = factory.CreateConnection();
 
@@ -107,15 +108,16 @@ namespace Jupiter
             channel.QueueDeclare("jupiter.transport.fromserver.callback", true, false, false, null);
 
             EventingBasicConsumer consumerToServer = new EventingBasicConsumer(channel);
+
             consumerToServer.Received += (ch, ea) =>
             {
                 var body = ea.Body;
 
-                fromTransportResponse(ea.Body);
+                fromTransportResponse(ea.Body,ea.BasicProperties.CorrelationId);
 
                 try
                 {
-                    //channel.BasicAck(ea.DeliveryTag, false);
+                    channel.BasicAck(ea.DeliveryTag, false);
                 }
                 catch
                 {

@@ -74,7 +74,11 @@ public class Units {
 			}
             else
             {
-                unit.value = val.Value.ToString();
+                Byte[] encodedBytes = utf8.GetBytes(val.Value.ToString());
+                Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+                String decodedString = utf8.GetString(win1251Bytes);
+
+                unit.value = decodedString;
             }
         }
   

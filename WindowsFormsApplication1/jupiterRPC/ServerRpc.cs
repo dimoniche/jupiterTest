@@ -16,10 +16,14 @@ using System.Text;
 */
 public class ServerRpc {
 
-	/**
+ 
+    public String requestId;
+
+
+    /**
 	 * Идентификатор прибора должен быть уникальным - серийный номер
 	 */
-	public String deviceid;
+    public String deviceid;
 	
 	/**
 	 * Описание прибора к которому нужно сформировать запрос
@@ -124,7 +128,8 @@ public class ServerRpc {
     public static byte[] toJson(ServerRpc objects)
 	{
         JObject jsonObj = 
-            new JObject(new JProperty("deviceid", JToken.FromObject(objects.deviceid)),
+            new JObject(new JProperty("requestId", JToken.FromObject(objects.requestId)),
+                        new JProperty("deviceid", JToken.FromObject(objects.deviceid)),
                         new JProperty("device", JToken.FromObject(objects.device.ToString())),
                         new JProperty("busAddress", JToken.FromObject(objects.busAddress)),
                         new JProperty("imei", JToken.FromObject(objects.imei)),
@@ -161,7 +166,11 @@ public class ServerRpc {
 
 		foreach(var obj in objects)
         {
-			if(obj.Key == "deviceid")
+			if(obj.Key == "requestId")
+            {
+                result.requestId = obj.Value.ToString();
+            }
+            else if (obj.Key == "deviceid")
             {
                 result.deviceid = obj.Value.ToString();
             }

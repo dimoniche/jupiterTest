@@ -35,8 +35,8 @@ namespace WindowsFormsApplication1.Controls
     
         void clear()
         {
-            UnitsView.Rows.Clear();
-            ArchiveView.Rows.Clear();
+            //UnitsView.Rows.Clear();
+            //ArchiveView.Rows.Clear();
         }
 
         public void InsertUnitsRow(List<Units> listUnits)
@@ -91,6 +91,15 @@ namespace WindowsFormsApplication1.Controls
 					str[i] = val;
 					i++;
 				}
+
+                foreach (String val in str)
+                {
+                    if(val == "" || val == null)
+                    {
+                        str[i] = " ";
+                    }
+                    i++;
+                }
 
                 ArchiveView.Rows.Add(str);
             }

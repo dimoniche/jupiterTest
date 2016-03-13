@@ -51,4 +51,14 @@ public class ArchiveJob {
 
         return job;
     }
+
+    public bool Equals(ArchiveJob job)
+    {
+        if (this.archiveType == job.archiveType
+        && this.dateFinish == job.dateFinish
+        && this.dateStart == job.dateStart)
+            return true;
+
+        return false;
+    }
 }

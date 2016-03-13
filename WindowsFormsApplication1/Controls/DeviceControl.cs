@@ -10,6 +10,8 @@ namespace Jupiter.Controls
         public ServerRpc request = new ServerRpc();
         IModel channel;
 
+        public String CorrelationId;
+
         public DeviceControl()
         {
             InitializeComponent();
@@ -91,8 +93,9 @@ namespace Jupiter.Controls
             corrId = Guid.NewGuid();  
             BasicProperties props = new BasicProperties();
             props.CorrelationId = corrId.ToString();
-
-            channel.BasicPublish("","jupiter.transport.fromserver", null, ServerRpc.toJson(request));
+            request.requestId = props.CorrelationId;
+  
+            channel.BasicPublish("","jupiter.transport.fromserver", props, ServerRpc.toJson(request));
         }
     }
 }

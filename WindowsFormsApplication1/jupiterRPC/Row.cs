@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Text;
 /**
 * Описание полученной архивной записи
 * @author d.chistyakov
@@ -38,7 +39,9 @@ public class Row {
     internal static Row FromXml(JToken value)
     {
         Row row = new Row();
-    
+        UTF8Encoding utf8 = new UTF8Encoding();
+        Encoding win1251 = Encoding.GetEncoding("Windows-1251");
+
         foreach (JProperty val in value)
         {
             if (val.Name == "key")
@@ -68,7 +71,11 @@ public class Row {
                 {
                     for(int i = 0; i < obj.Count; i++)
                     {
-                        list_value.Add(obj[i].ToString());
+                        Byte[] encodedBytes = utf8.GetBytes(obj[i].ToString());
+                        Byte[] win1251Bytes = Encoding.Convert(utf8, win1251, encodedBytes);
+                        String decodedString = utf8.GetString(win1251Bytes);
+
+                        list_value.Add(decodedString);
                     }
                 }
 
