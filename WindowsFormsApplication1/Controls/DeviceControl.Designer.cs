@@ -46,14 +46,21 @@
             this.deviceId = new System.Windows.Forms.TextBox();
             this.devicetype = new System.Windows.Forms.ComboBox();
             this.IMEI = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.busAdress = new System.Windows.Forms.TextBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.result = new System.Windows.Forms.Label();
             this.resultResponseView = new WindowsFormsApplication1.Controls.ResultResponseView();
+            this.settingRequest = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.timeoutRequest = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.timeoutTask = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.DateArchive.SuspendLayout();
             this.TypeArchive.SuspendLayout();
             this.DeviceSetting.SuspendLayout();
+            this.settingRequest.SuspendLayout();
             this.SuspendLayout();
             // 
             // DateArchive
@@ -152,7 +159,7 @@
             this.DeviceSetting.Controls.Add(this.deviceId);
             this.DeviceSetting.Controls.Add(this.devicetype);
             this.DeviceSetting.Controls.Add(this.IMEI);
-            this.DeviceSetting.Controls.Add(this.textBox1);
+            this.DeviceSetting.Controls.Add(this.busAdress);
             this.DeviceSetting.Location = new System.Drawing.Point(14, 3);
             this.DeviceSetting.Name = "DeviceSetting";
             this.DeviceSetting.Size = new System.Drawing.Size(200, 129);
@@ -217,13 +224,13 @@
             this.IMEI.TabIndex = 8;
             this.IMEI.Text = "353173062746001";
             // 
-            // textBox1
+            // busAdress
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "0";
+            this.busAdress.Location = new System.Drawing.Point(94, 46);
+            this.busAdress.Name = "busAdress";
+            this.busAdress.Size = new System.Drawing.Size(100, 20);
+            this.busAdress.TabIndex = 8;
+            this.busAdress.Text = "0";
             // 
             // contextMenuStrip1
             // 
@@ -247,10 +254,58 @@
             this.resultResponseView.Size = new System.Drawing.Size(632, 300);
             this.resultResponseView.TabIndex = 11;
             // 
+            // settingRequest
+            // 
+            this.settingRequest.Controls.Add(this.label7);
+            this.settingRequest.Controls.Add(this.timeoutTask);
+            this.settingRequest.Controls.Add(this.label6);
+            this.settingRequest.Controls.Add(this.timeoutRequest);
+            this.settingRequest.Location = new System.Drawing.Point(223, 3);
+            this.settingRequest.Name = "settingRequest";
+            this.settingRequest.Size = new System.Drawing.Size(232, 129);
+            this.settingRequest.TabIndex = 12;
+            this.settingRequest.TabStop = false;
+            this.settingRequest.Text = "Настройки запроса";
+            // 
+            // timeoutRequest
+            // 
+            this.timeoutRequest.Location = new System.Drawing.Point(126, 20);
+            this.timeoutRequest.Name = "timeoutRequest";
+            this.timeoutRequest.Size = new System.Drawing.Size(100, 20);
+            this.timeoutRequest.TabIndex = 9;
+            this.timeoutRequest.Text = "15";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(98, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Тайм аут запроса";
+            // 
+            // timeoutTask
+            // 
+            this.timeoutTask.Location = new System.Drawing.Point(126, 43);
+            this.timeoutTask.Name = "timeoutTask";
+            this.timeoutTask.Size = new System.Drawing.Size(100, 20);
+            this.timeoutTask.TabIndex = 9;
+            this.timeoutTask.Text = "300";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(91, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Тайм аут задачи";
+            // 
             // DeviceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.settingRequest);
             this.Controls.Add(this.resultResponseView);
             this.Controls.Add(this.result);
             this.Controls.Add(this.DeviceSetting);
@@ -265,6 +320,8 @@
             this.TypeArchive.PerformLayout();
             this.DeviceSetting.ResumeLayout(false);
             this.DeviceSetting.PerformLayout();
+            this.settingRequest.ResumeLayout(false);
+            this.settingRequest.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,7 +343,7 @@
         private System.Windows.Forms.ComboBox devicetype;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox busAdress;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox IMEI;
@@ -294,5 +351,11 @@
         private System.Windows.Forms.TextBox deviceId;
         private System.Windows.Forms.Label result;
         public WindowsFormsApplication1.Controls.ResultResponseView resultResponseView;
+        private System.Windows.Forms.GroupBox settingRequest;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox timeoutTask;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox timeoutRequest;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }

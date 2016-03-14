@@ -15,8 +15,6 @@ namespace Jupiter.Controls
         public DeviceControl()
         {
             InitializeComponent();
-
-
         }
 
         public DeviceControl(IModel channel)
@@ -28,35 +26,36 @@ namespace Jupiter.Controls
 
         }
 
-        public delegate void changeVisibleHandler();
+        public delegate void changeVisibleHandler(string resultText);
 
-        public void changeVisible()
+        public void changeVisible(string resultText)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new changeVisibleHandler(change));
+                BeginInvoke(new changeVisibleHandler(change),resultText);
                 return;
             }
             else
             {
-                change();
+                change(resultText);
             }
         }
 
-        void change()
+        void change(string resultText)
         {
             DeviceSetting.Enabled = !DeviceSetting.Enabled;
             DateArchive.Enabled = !DateArchive.Enabled;
             TypeArchive.Enabled = !TypeArchive.Enabled;
             button1.Enabled = !button1.Enabled;
+            settingRequest.Enabled = !settingRequest.Enabled;
 
-            if(button1.Enabled) result.Text = "Ответ получен";
+            if (button1.Enabled) result.Text = resultText;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             int bus = 0;
-
+            int.TryParse(busAdress.Text,out bus);
             request.busAddress = bus;
 
             DeviceTypeEnum type = 0;
@@ -77,13 +76,21 @@ namespace Jupiter.Controls
             job.dateFinish = FinishArchivedateTime.Value;
 
             request.archiveJob = job;
-            request.timeOutRequest = 15;
-            request.timeOutTask = 300;
+
+            int timeOutRequest = 0;
+            int.TryParse(timeoutRequest.Text, out timeOutRequest);
+            request.timeOutRequest = timeOutRequest;
+
+            int timeOutTask = 0;
+            int.TryParse(timeoutRequest.Text, out timeOutTask);
+            request.timeOutRequest = timeOutTask;
+
             request.requestType = RequestServerTypeEnum.GET_ARCHIVE;
 
             DeviceSetting.Enabled = false;
             DateArchive.Enabled = false;
             TypeArchive.Enabled = false;
+            settingRequest.Enabled = false;
 
             result.Text = "Пошел запрос";
 

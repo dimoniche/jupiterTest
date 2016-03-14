@@ -19,7 +19,6 @@ namespace Jupiter
         IConnection conn;
         IModel channel;
 
-        ServerRpc request;
         List<DeviceControl> device = new List<DeviceControl>();
 
         public JupiterTest()
@@ -30,7 +29,7 @@ namespace Jupiter
 
         void fromTransportResponse(byte[] response, string id)
         {
-            request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
+            ServerRpc request = ServerRpc.fromJson(JObject.Parse(Encoding.Default.GetString(response)));
             DeviceControl dev;
 
             dev = device.Where<DeviceControl>(c => c.request.requestId.Equals(request.requestId)).FirstOrDefault();
@@ -38,15 +37,19 @@ namespace Jupiter
             if (dev != null)
             {
                 dev.resultResponseView.clearAll();
-
+                dev.changeVisible(request.errorText);
+          
+                if (request.error != ErrorDeviceEnum.OK)
+                {
+                    return;
+                }
+        
                 dev.resultResponseView.InsertUnitsRow(request.units);
-                if (!dev.resultResponseView.columnLoaded)
+                //if (!dev.resultResponseView.columnLoaded)
                 {
                     dev.resultResponseView.InsertArchiveColumn(request.header);
                 }
                 dev.resultResponseView.InsertArchiveRow(request.rows);
-
-                dev.changeVisible();
             }
         }
 

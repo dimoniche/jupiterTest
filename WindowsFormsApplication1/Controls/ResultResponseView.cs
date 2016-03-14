@@ -120,7 +120,9 @@ namespace WindowsFormsApplication1.Controls
 
 		public void ArchiveColumn(List<HeaderColumn> column)
 		{
-			foreach (HeaderColumn col in column)
+            ArchiveView.Columns.Clear();
+
+            foreach (HeaderColumn col in column)
 			{
 				ArchiveView.Columns.Add(col.column, col.column);
 			}
