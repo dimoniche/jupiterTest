@@ -24,6 +24,14 @@ public class ArchiveJob {
 	public ArchiveJob() {
 	}
 
+	public static DateTime JavaTimeStampToDateTime(double javaTimeStamp)
+	{
+		// Java timestamp is millisecods past epoch
+		System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+		dtDateTime = dtDateTime.AddSeconds(Math.Round(javaTimeStamp / 1000));
+		return dtDateTime;
+	}
+
     internal static ArchiveJob FromXml(JToken values)
     {
         ArchiveJob job = new ArchiveJob();
@@ -41,11 +49,11 @@ public class ArchiveJob {
             }
             else if (val.Name == "dateStart")
             {
-                job.dateStart = new DateTime(long.Parse(val.Value.ToString())*10000 + 621355968000000000);
+				job.dateStart = JavaTimeStampToDateTime(double.Parse(val.Value.ToString()));
             }
             else if (val.Name == "dateFinish")
             {
-                job.dateFinish = new DateTime(long.Parse(val.Value.ToString()) * 10000 + 621355968000000000);
+				job.dateFinish = JavaTimeStampToDateTime(double.Parse(val.Value.ToString()));
             }
         }
 

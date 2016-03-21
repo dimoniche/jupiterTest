@@ -20,10 +20,20 @@ namespace Jupiter.Controls
         public DeviceControl(IModel channel)
         {
             InitializeComponent();
-
             this.channel = channel;
 
+			if (radioButtonHour.Checked)
+			{
+				StartArchivedateTime.Value = DateTime.Now - new TimeSpan(0, 34, 0, 0, 0);
+				StartArchivedateTime.CustomFormat = "dd.MM.yyyy hh.mm";
+			}
+			else
+			{
+				StartArchivedateTime.Value = DateTime.Now - new TimeSpan(30, 0, 0, 0, 0);
+				StartArchivedateTime.CustomFormat = "dd.MM.yyyy";
+			}
 
+			FinishArchivedateTime.Value = DateTime.Now;
         }
 
         public delegate void changeVisibleHandler(string resultText);
@@ -82,8 +92,8 @@ namespace Jupiter.Controls
             request.timeOutRequest = timeOutRequest;
 
             int timeOutTask = 0;
-            int.TryParse(timeoutRequest.Text, out timeOutTask);
-            request.timeOutRequest = timeOutTask;
+			int.TryParse(timeoutTask.Text, out timeOutTask);
+			request.timeOutTask = timeOutTask;
 
             request.requestType = RequestServerTypeEnum.GET_ARCHIVE;
 
@@ -101,8 +111,24 @@ namespace Jupiter.Controls
             BasicProperties props = new BasicProperties();
             props.CorrelationId = corrId.ToString();
             request.requestId = props.CorrelationId;
-  
-            channel.BasicPublish("","jupiter.transport.fromserver", props, ServerRpc.toJson(request));
+
+			channel.BasicPublish("", "jupiter.transport.fromserver", props, ServerRpc.toJson(request));
         }
+
+		private void radioButtonHour_CheckedChanged(object sender, EventArgs e)
+		{
+			if (radioButtonHour.Checked)
+			{
+				StartArchivedateTime.Value = DateTime.Now - new TimeSpan(0, 24, 0, 0, 0);
+				StartArchivedateTime.CustomFormat = "dd.MM.yyyy HH.mm";
+				FinishArchivedateTime.CustomFormat = "dd.MM.yyyy HH.mm";
+			}
+			else
+			{
+				StartArchivedateTime.Value = DateTime.Now - new TimeSpan(30, 0, 0, 0, 0);
+				StartArchivedateTime.CustomFormat = "dd.MM.yyyy";
+				FinishArchivedateTime.CustomFormat = "dd.MM.yyyy";
+			}
+		}
     }
 }

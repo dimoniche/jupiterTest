@@ -41,7 +41,7 @@ namespace Jupiter
           
                 if (request.error != ErrorDeviceEnum.OK)
                 {
-                    return;
+                    //return;
                 }
         
                 dev.resultResponseView.InsertUnitsRow(request.units);
@@ -82,14 +82,13 @@ namespace Jupiter
 
         public void newDeviceinsert(object sender, EventArgs e)
         {
-            TabPage page = new TabPage("Name" + devicesTab.TabPages.Count);
+			TabPage page = new TabPage("Устройство " + (devicesTab.TabPages.Count+1));
             DeviceControl dev = new DeviceControl(channel);
 
             page.Controls.Add(dev);
             devicesTab.TabPages.Add(page);
 
             device.Add(dev);
-
         }
   
         private void button3_Click(object sender, EventArgs e)
@@ -133,6 +132,18 @@ namespace Jupiter
 
             button1.Enabled = true;
             button2.Enabled = true;
+			button3.Enabled = false;
         }
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			if (devicesTab.TabPages.Count > 0)
+			{
+				TabPage page = devicesTab.TabPages[devicesTab.SelectedIndex];
+				DeviceControl dev = (DeviceControl)page.Controls[0];
+				device.Remove(dev);
+				devicesTab.TabPages.RemoveAt(devicesTab.SelectedIndex);
+			}
+		}
     }
 }
