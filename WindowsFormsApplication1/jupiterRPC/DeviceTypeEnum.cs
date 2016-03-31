@@ -9,4 +9,5 @@ public enum DeviceTypeEnum {
 	SPT941_11,
 	SPT943,
 	SPT942,
+	VKT7,
 }

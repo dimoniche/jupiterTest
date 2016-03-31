@@ -45,7 +45,6 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.deviceId = new System.Windows.Forms.TextBox();
 			this.devicetype = new System.Windows.Forms.ComboBox();
-			this.IMEI = new System.Windows.Forms.TextBox();
 			this.busAdress = new System.Windows.Forms.TextBox();
 			this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -56,6 +55,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.timeoutRequest = new System.Windows.Forms.TextBox();
 			this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+			this.IMEI = new System.Windows.Forms.ComboBox();
 			this.resultResponseView = new WindowsFormsApplication1.Controls.ResultResponseView();
 			this.DateArchive.SuspendLayout();
 			this.TypeArchive.SuspendLayout();
@@ -157,12 +157,12 @@
 			// 
 			// DeviceSetting
 			// 
+			this.DeviceSetting.Controls.Add(this.IMEI);
 			this.DeviceSetting.Controls.Add(this.label5);
 			this.DeviceSetting.Controls.Add(this.label4);
 			this.DeviceSetting.Controls.Add(this.label3);
 			this.DeviceSetting.Controls.Add(this.deviceId);
 			this.DeviceSetting.Controls.Add(this.devicetype);
-			this.DeviceSetting.Controls.Add(this.IMEI);
 			this.DeviceSetting.Controls.Add(this.busAdress);
 			this.DeviceSetting.Location = new System.Drawing.Point(14, 3);
 			this.DeviceSetting.Name = "DeviceSetting";
@@ -213,20 +213,13 @@
             "Нет",
             "SPT941_11",
             "SPT943",
-            "SPT942"});
+            "SPT942",
+            "VKT7"});
 			this.devicetype.Location = new System.Drawing.Point(9, 19);
 			this.devicetype.Name = "devicetype";
 			this.devicetype.Size = new System.Drawing.Size(185, 21);
 			this.devicetype.TabIndex = 8;
 			this.devicetype.Text = "Нет";
-			// 
-			// IMEI
-			// 
-			this.IMEI.Location = new System.Drawing.Point(94, 96);
-			this.IMEI.Name = "IMEI";
-			this.IMEI.Size = new System.Drawing.Size(100, 20);
-			this.IMEI.TabIndex = 8;
-			this.IMEI.Text = "353173062746001";
 			// 
 			// busAdress
 			// 
@@ -297,6 +290,19 @@
 			this.timeoutRequest.TabIndex = 9;
 			this.timeoutRequest.Text = "15";
 			// 
+			// IMEI
+			// 
+			this.IMEI.FormattingEnabled = true;
+			this.IMEI.Items.AddRange(new object[] {
+            "353173062746001",
+            "355234054736968",
+            "355234053924847"});
+			this.IMEI.Location = new System.Drawing.Point(50, 97);
+			this.IMEI.Name = "IMEI";
+			this.IMEI.Size = new System.Drawing.Size(144, 21);
+			this.IMEI.TabIndex = 11;
+			this.IMEI.Text = "355234054736968";
+			// 
 			// resultResponseView
 			// 
 			this.resultResponseView.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -349,8 +355,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox busAdress;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox IMEI;
+		private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox deviceId;
         private System.Windows.Forms.Label result;
@@ -361,5 +366,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox timeoutRequest;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
+		private System.Windows.Forms.ComboBox IMEI;
     }
 }
