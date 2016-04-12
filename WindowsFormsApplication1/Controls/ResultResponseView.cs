@@ -94,10 +94,14 @@ namespace WindowsFormsApplication1.Controls
 
                 foreach (String val in str)
                 {
-                    if(val == "" || val == null)
+                    try
                     {
-                        str[i] = " ";
+                        if (val == "" || val == null)
+                        {
+                            str[i] = " ";
+                        }
                     }
+                    catch { }
                     i++;
                 }
 
